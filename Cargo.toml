@@ -1,0 +1,7 @@
+[package]
+name = "nuclerust"
+version = "0.1.0"
+authors = ["k-masatany <masatani@fusic.co.jp>"]
+
+[dependencies]
+x86 = "0.8.1"
