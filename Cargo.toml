@@ -1,7 +1,10 @@
 [package]
 name = "nuclerust"
 version = "0.1.0"
-authors = ["k-masatany <masatani@fusic.co.jp>"]
+authors = ["kmasatany"]
+
+[lib]
+crate-type = ["staticlib"]
 
 [dependencies]
-x86 = "0.8.1"
+rlibc = "1.0"
