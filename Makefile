@@ -15,7 +15,8 @@ assembly_object_files := $(patsubst src/arch/$(arch)/%.asm, \
 all: $(kernel)
 
 clean:
-	@rm -r build
+	@cargo clean
+	@rm -rf build
 
 run: $(iso)
 	@qemu-system-x86_64 -cdrom $(iso)
@@ -27,7 +28,7 @@ $(iso): $(kernel) $(grub_cfg)
 	@cp $(kernel) build/isofiles/boot/kernel.bin
 	@cp $(grub_cfg) build/isofiles/boot/grub
 	@grub-mkrescue -o $(iso) build/isofiles 2> /dev/null
-#	@rm -r build/isofiles
+	@rm -r build/isofiles
 
 $(kernel): kernel $(rust_os) $(assembly_object_files) $(linker_script)
 	@ld -n --gc-sections -T $(linker_script) -o $(kernel) \
@@ -39,4 +40,4 @@ kernel:
 # compile assembly files
 build/arch/$(arch)/%.o: src/arch/$(arch)/%.asm
 	@mkdir -p $(shell dirname $@)
-	@/usr/local/Cellar/nasm/2.13.01/bin/nasm -felf64 $< -o $@
+	@nasm -felf64 $< -o $@
